@@ -1,0 +1,10 @@
+name         'p0deje-firefox'
+version      '0.1.0'
+source       'https://github.com/p0deje/puppet-display'
+author       'p0deje'
+license      'Apache License, Version 2.0'
+summary      'Simple Firefox installation module'
+description  'Simple Firefox installation module'
+project_page 'https://github.com/p0deje/puppet-display'
+
+dependency 'puppetlabs/apt'
