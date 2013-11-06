@@ -1,5 +1,5 @@
 name         'p0deje-firefox'
-version      '0.2.0'
+version      '0.2.1'
 source       'https://github.com/p0deje/puppet-display'
 author       'p0deje'
 license      'MIT'

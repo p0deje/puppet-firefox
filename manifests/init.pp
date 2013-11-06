@@ -50,16 +50,13 @@ class firefox(
         require  => Exec['download'],
       }
 
-      file { "/tmp/${deb}":
-        ensure  => absent,
-        path    => "/tmp/${deb}",
-        require => Package['firefox-mozilla-build'],
-      }
+      # TODO need to remove DEB file after installation
+      # but it breaks "latest" dpkg package
     }
 
     default: {
       apt::source { 'ubuntuzilla':
-        location    => 'http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt/',
+        location    => 'http://downloads.sourceforge.net/project/ubuntuzilla/mozilla/apt',
         release     => 'all',
         repos       => 'main',
         key         => 'C1289A29',
