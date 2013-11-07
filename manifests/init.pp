@@ -35,18 +35,23 @@ class firefox(
     /[0-9\.-]+ubuntu[0-9]+/: {
       $url = 'http://sourceforge.net/projects/ubuntuzilla/files/mozilla/apt/pool/main/f/firefox-mozilla-build'
       $deb = "firefox-mozilla-build_${version}_${$::architecture}.deb"
+      $dir = '/usr/lib/p0deje-firefox'
+
+      file { $dir:
+        ensure => directory,
+      }
 
       exec { 'download':
-        command => "wget ${url}/${deb}/download -O /tmp/$deb",
-        creates => "/tmp/${deb}",
+        command => "wget ${url}/${deb}/download -O $dir/$deb",
         unless  => "dpkg -l | grep firefox-mozilla-build | grep ${version}",
         path    => ['/bin' ,'/usr/bin'],
+        require => File[$dir],
       }
 
       package { 'firefox-mozilla-build':
         provider => dpkg,
         ensure   => latest,
-        source   => "/tmp/${deb}",
+        source   => "$dir/${deb}",
         require  => Exec['download'],
       }
 
