@@ -76,8 +76,10 @@ class firefox(
     }
   }
 
-  package { 'xul-ext-ubufox':
-    ensure  => present,
-    require => Package['firefox-mozilla-build'],
+  if $operatingsystem == 'Ubuntu' {
+    package { 'xul-ext-ubufox':
+      ensure  => present,
+      require => Package['firefox-mozilla-build'],
+    }
   }
 }
