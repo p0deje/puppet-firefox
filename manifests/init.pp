@@ -6,11 +6,14 @@
 #
 # [*version*]
 #   Firefox version. Defaults to latest.
+# [*downloadTimeout*]
+#   Timeout in seconds to download Firefox. Defaults to 300.
 #
 # === Examples
 #
 # class { 'firefox':
-#   version => '24.0-0ubuntu1'
+#   version => '24.0-0ubuntu1',
+#   downloadTimeout => 600,
 # }
 #
 # === Authors
@@ -23,6 +26,7 @@
 #
 class firefox(
   $version = latest,
+  $downloadTimeout = 300,
 ) {
 
   # Ubuntuzilla ships with latest version, so we can use its APT repo to install it.
@@ -46,6 +50,7 @@ class firefox(
         unless  => "dpkg -l | grep firefox-mozilla-build | grep ${version}",
         path    => ['/bin' ,'/usr/bin'],
         require => File[$dir],
+        timeout => $downloadTimeout,
       }
 
       package { 'firefox-mozilla-build':
